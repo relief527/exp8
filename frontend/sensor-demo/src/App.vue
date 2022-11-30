@@ -11,16 +11,16 @@ export default{
  },
   methods:{
   async getSensors(){
-   const res = await axios.get('https://relief527-improved-space-lamp-p6wrg749xvpf6p7q-8000.preview.app.github.dev/api/sensors/')
+   const res = await axios.get('https://relief527-improved-space-lamp-p6wrg749xvpf6p7q-8080.preview.app.github.dev/api/sensors/')
    this.sensors = res.data;
   },
    async deleteSensor(sensor){
-   const res = await axios.delete('https://relief527-improved-space-lamp-p6wrg749xvpf6p7q-8000.preview.app.github.dev/api/sensors/'+sensor.id)
+   const res = await axios.delete('https://relief527-improved-space-lamp-p6wrg749xvpf6p7q-8080.preview.app.github.dev/api/sensors/'+sensor.id)
    this.getSensors();
 },
 
     async addSensor(){
-     await axios.post('https://relief527-improved-space-lamp-p6wrg749xvpf6p7q-8000.preview.app.github.dev/api/sensors/',
+     await axios.post('https://relief527-improved-space-lamp-p6wrg749xvpf6p7q-8080.preview.app.github.dev/api/sensors/',
     {
      name: "New Sensor"
     }) 
