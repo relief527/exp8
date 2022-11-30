@@ -1,48 +1,45 @@
-<script setup>
+<script>
 import axios from 'axios'
 export default{
-  data() {
-    return {
-      sensors:[]
-    }
-  },
-  mounted(){
-    this.getAllSensors()
-  }
-methods:{
-    async getAllSensors(){
-      const res = await axios.get('https://relief527-improved-space-lamp-p6wrg749xvpf6p7q-8000.preview.app.github.dev/api/sensors')
-      this.sensors = res.data
-    },
+  data(){
+    return{
+      sensors:[{id:1,name:"温度传感器"}]
+    }
+  },
+   mounted(){
+  this.getSensors()
+ },
+  methods:{
+  async getSensors(){
+   const res = await axios.get('https://relief527-improved-space-lamp-p6wrg749xvpf6p7q-8000.preview.app.github.dev/api/sensors/')
+   this.sensors = res.data;
+  },
+   async deleteSensor(sensor){
+   const res = await axios.delete('https://relief527-improved-space-lamp-p6wrg749xvpf6p7q-8000.preview.app.github.dev/api/sensors/'+sensor.id)
+   this.getSensors();
+},
 
-    async deleteOneSensor(sensor){
-      const res = await axios.delete(`https://relief527-improved-space-lamp-p6wrg749xvpf6p7q-8000.preview.app.github.dev/api/sensors/${sensor.id}`)
-      this.getAllSensors();
-    },
-
-    async addOneSensor(){
-      await axios.post('https://relief527-improved-space-lamp-p6wrg749xvpf6p7q-8000.preview.app.github.dev/api/sensors',
-      {
-        name: "Sensor New"
-      })      
-      this.getAllSensors();
-    }
-  }
-
+    async addSensor(){
+     await axios.post('https://relief527-improved-space-lamp-p6wrg749xvpf6p7q-8000.preview.app.github.dev/api/sensors/',
+    {
+     name: "New Sensor"
+    }) 
+     this.getSensors();
+ }
 }
 
+}
 </script>
 
 <template>
-  <button @click="getAllSensors">Get All Sensors</button>
-  <button @click="addOneSensor">Add One Sensor</button>
+  <button @click="getSensors">Get All Sensors</button>
+  <button @click="addSensor">Add One Sensor</button>
   <ul>
     <li v-for="sensor in sensors">
       {{sensor.id}} - {{sensor.name}}
-      <button @click="deleteOneSensor(sensor)">x</button>
+      <button @click="deleteSensor(sensor)">x</button>
     </li>
   </ul>
-
 </template>
 
 <style scoped>
